@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: outdry-backend
+
+server:
+  port: 80
