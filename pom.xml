@@ -1,17 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>dev.akorovai</groupId>
-	<artifactId>backend</artifactId>
+	<artifactId>outdry-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>backend</name>
+	<name>outdry-backend</name>
 	<description>Backend of Outdry Store</description>
 	<url/>
 	<licenses>
@@ -29,6 +28,10 @@
 	<properties>
 		<java.version>21</java.version>
 		<spring-cloud-azure.version>5.19.0</spring-cloud-azure.version>
+		<assertj.version>3.26.0</assertj.version>
+		<guava.version>33.3.1-jre</guava.version>
+		<mapstruct.version>1.5.5.Final</mapstruct.version>
+		<azure-container-apps-maven-plugin.version>0.1.0</azure-container-apps-maven-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -102,15 +105,53 @@
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>3.26.0</version>
+			<version>${assertj.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>33.3.1-jre</version>
+			<version>${guava.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.github.spotbugs</groupId>
+			<artifactId>spotbugs-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
+
+
+		<!-- Additional Dependencies -->
+		<dependency>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -130,10 +171,17 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+						</path>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${mapstruct.version}</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
@@ -141,7 +189,7 @@
 			<plugin>
 				<groupId>com.microsoft.azure</groupId>
 				<artifactId>azure-container-apps-maven-plugin</artifactId>
-				<version>0.1.0</version>
+				<version>${azure-container-apps-maven-plugin.version}</version>
 				<configuration>
 					<subscriptionId>your-subscription-id</subscriptionId>
 					<resourceGroup>your-resource-group</resourceGroup>
@@ -178,5 +226,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
