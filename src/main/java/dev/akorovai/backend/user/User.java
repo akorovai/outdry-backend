@@ -4,39 +4,48 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.akorovai.backend.addressInfo.AddressInfo;
 import dev.akorovai.backend.order.Order;
 import dev.akorovai.backend.review.Review;
+import dev.akorovai.backend.role.Role;
 import dev.akorovai.backend.shopping_cart.ShoppingCartItem;
-import dev.akorovai.backend.user_role.UserRole;
 import dev.akorovai.backend.wish_list.WishListItem;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
-
+import java.util.stream.Collectors;
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@SuperBuilder
 @Table(name = "users", indexes = {
 		@Index(name = "idx_user_email", columnList = "email", unique = true),
 		@Index(name = "idx_user_refresh_token", columnList = "refresh_token")
 })
-@EntityListeners(AuditingEntityListener.class)
-public class User {
+public class User implements UserDetails, Principal {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(nullable = false)
 	private Long id;
 
 	@Column(nullable = false, length = 128)
 	private String nickname;
-
+	@Override
+	public String getPassword() {
+		return this.password;
+	}
 	@Column(nullable = false, unique = true, length = 64)
 	private String email;
 
@@ -46,35 +55,42 @@ public class User {
 	@Column(name = "refresh_token")
 	private String refreshToken;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@ToString.Exclude
-	@JsonIgnore
-	private Set<UserRole> roles;
+	@Builder.Default
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_roles",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude
 	@JsonIgnore
-	private Set<AddressInfo> addresses;
+	@Builder.Default
+	private Set<AddressInfo> addresses = new HashSet<>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude
 	@JsonIgnore
-	private Set<ShoppingCartItem> shoppingCartItems;
+	@Builder.Default
+	private Set<ShoppingCartItem> shoppingCartItems = new HashSet<>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude
 	@JsonIgnore
-	private Set<WishListItem> wishListItems;
+	@Builder.Default
+	private Set<WishListItem> wishListItems = new HashSet<>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude
 	@JsonIgnore
-	private Set<Review> reviews;
+	@Builder.Default
+	private Set<Review> reviews = new HashSet<>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude
 	@JsonIgnore
-	private Set<Order> orders;
+	@Builder.Default
+	private Set<Order> orders = new HashSet<>();
 
 	@CreatedBy
 	@Column(nullable = false, updatable = false)
@@ -92,16 +108,37 @@ public class User {
 	@Column(nullable = false)
 	private LocalDateTime lastModifiedDate;
 
+	@Column(name = "account_locked", nullable = false)
+	private boolean accountLocked;
+
+	@Column(nullable = false)
+	private boolean enabled;
+
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		User user = (User) o;
-		return id != null && id.equals(user.id);
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return this.roles.stream()
+				       .map(role -> new SimpleGrantedAuthority(role.getName()))
+				       .collect(Collectors.toList());
 	}
 
 	@Override
-	public int hashCode() {
-		return getClass().hashCode();
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return !accountLocked;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	@Override
+	public String getName() {
+		return email;
 	}
 }
+

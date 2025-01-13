@@ -23,7 +23,6 @@ import java.time.LocalDateTime;
 		@Index(name = "idx_shopping_cart_item_user_id", columnList = "user_id"),
 		@Index(name = "idx_shopping_cart_item_product_id", columnList = "product_id")
 })
-@EntityListeners(AuditingEntityListener.class)
 public class ShoppingCartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,17 +58,4 @@ public class ShoppingCartItem {
 	@LastModifiedDate
 	@Column(nullable = false)
 	private LocalDateTime lastModifiedDate;
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		ShoppingCartItem that = (ShoppingCartItem) o;
-		return id != null && id.equals(that.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return getClass().hashCode();
-	}
 }

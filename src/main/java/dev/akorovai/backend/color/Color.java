@@ -33,16 +33,4 @@ public class Color {
 	@JsonIgnore
 	private Set<Product> products;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Color color = (Color) o;
-		return id != null && id.equals(color.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return getClass().hashCode();
-	}
 }

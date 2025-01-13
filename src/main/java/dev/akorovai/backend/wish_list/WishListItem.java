@@ -23,7 +23,6 @@ import java.time.LocalDateTime;
 		@Index(name = "idx_wish_list_item_user_id", columnList = "user_id"),
 		@Index(name = "idx_wish_list_item_product_id", columnList = "product_id")
 })
-@EntityListeners(AuditingEntityListener.class)
 public class WishListItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,16 +56,5 @@ public class WishListItem {
 	@Column(nullable = false)
 	private LocalDateTime lastModifiedDate;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		WishListItem that = (WishListItem) o;
-		return id != null && id.equals(that.id);
-	}
 
-	@Override
-	public int hashCode() {
-		return getClass().hashCode();
-	}
 }

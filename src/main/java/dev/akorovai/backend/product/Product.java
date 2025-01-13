@@ -29,7 +29,6 @@ import java.util.Set;
 		@Index(name = "idx_product_type_id", columnList = "type_id"),
 		@Index(name = "idx_product_name", columnList = "name")
 })
-@EntityListeners(AuditingEntityListener.class)
 public class Product {
 	@Id
 	@Column(nullable = false, length = 16)
@@ -98,16 +97,4 @@ public class Product {
 	@Column(nullable = false)
 	private LocalDateTime lastModifiedDate;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Product product = (Product) o;
-		return id != null && id.equals(product.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return getClass().hashCode();
-	}
 }

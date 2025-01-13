@@ -22,8 +22,6 @@ import java.time.LocalDateTime;
 		@Index(name = "idx_address_info_user_id", columnList = "user_id"),
 		@Index(name = "idx_address_info_state_city_postal_code", columnList = "state, city, postal_code")
 })
-@EntityListeners(AuditingEntityListener.class)
-
 public class AddressInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,16 +70,4 @@ public class AddressInfo {
 	@Column(nullable = false)
 	private LocalDateTime lastModifiedDate;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		AddressInfo that = (AddressInfo) o;
-		return id != null && id.equals(that.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return getClass().hashCode();
-	}
 }

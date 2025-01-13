@@ -25,7 +25,6 @@ import java.util.Set;
 		@Index(name = "idx_order_status", columnList = "status"),
 		@Index(name = "idx_order_created_at", columnList = "createdAt")
 })
-@EntityListeners(AuditingEntityListener.class)
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,16 +73,4 @@ public class Order {
 	@Column(nullable = false)
 	private LocalDateTime lastModifiedDate;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Order order = (Order) o;
-		return id != null && id.equals(order.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return getClass().hashCode();
-	}
 }
