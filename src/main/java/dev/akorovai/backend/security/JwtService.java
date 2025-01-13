@@ -1,10 +1,17 @@
 package dev.akorovai.backend.security;
 
+import dev.akorovai.backend.handler.user.UserNotFoundException;
+import dev.akorovai.backend.user.User;
+import dev.akorovai.backend.user.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +21,18 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
+	private final UserRepository userRepository;
 
+	@Value("${application.security.jwt.secret-key}")
+	private String secretKey;
 
-	private final String secretKey = "213";
+	@Value("${application.security.jwt.access-token.expiration}")
+	private long accessTokenExpiration;
 
-
-	private final long accessTokenExpiration = 213L;
-
-
-	private final long refreshTokenExpiration = 212L;
+	@Value("${application.security.jwt.refresh-token.expiration}")
+	private long refreshTokenExpiration;
 
 	public String extractUsername( String token ) {
 		return extractClaim(token, Claims::getSubject);
@@ -74,4 +83,11 @@ public class JwtService {
 		byte[] keyBytes = Decoders.BASE64.decode(secretKey);
 		return Keys.hmacShaKeyFor(keyBytes);
 	}
+
+	public User getAuthenticatedUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return userRepository.findByEmail(authentication.getName())
+				       .orElseThrow(() -> new UserNotFoundException("User not found"));
+	}
+
 }

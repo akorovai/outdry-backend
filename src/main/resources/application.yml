@@ -42,17 +42,22 @@ spring:
       spec: maximumSize=1000, expireAfterWrite=10m, recordStats
     cache-names: users, products, orders
 
-  #  mail:
-  #    host: smtp.gmail.com
-  #    port: 587
-  #    username: your_email@gmail.com
-  #    password: your_email_password
-  #    properties:
-  #      mail:
-  #        smtp:
-  #          auth: true
-  #          starttls:
-  #            enable: true
+  mail:
+    sender: no-reply@cubu.com.pl
+    recovery-title: WanderWave account recovery
+    validation-title: WanderWave account activation
+    host: cubu.atthost24.pl
+    port: 587
+    username: no-reply@cubu.com.pl
+    password: NoReplyCubu109
+    properties:
+      smtp:
+        auth: true
+        starttls:
+          enable: true
+        socketFactory:
+          port: 465
+          class: javax.net.ssl.SSLSocketFactory
 
   actuator:
     endpoints:
@@ -78,12 +83,12 @@ logging:
 server:
   port: 80
 
-# Database-specific properties
-database:
-  driver: org.postgresql.Driver
-  version: 17.2
-  autocommit: true
-  isolation-level: READ_COMMITTED
-  connection-pool:
-    minimum-size: 5
-    maximum-size: 20
+
+application:
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      access-token:
+        expiration: 900000
+      refresh-token:
+        expiration: 604800000

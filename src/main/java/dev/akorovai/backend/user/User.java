@@ -2,6 +2,7 @@ package dev.akorovai.backend.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.akorovai.backend.addressInfo.AddressInfo;
+import dev.akorovai.backend.emailToken.EmailToken;
 import dev.akorovai.backend.order.Order;
 import dev.akorovai.backend.review.Review;
 import dev.akorovai.backend.role.Role;
@@ -85,6 +86,10 @@ public class User implements UserDetails, Principal {
 	@JsonIgnore
 	@Builder.Default
 	private Set<Review> reviews = new HashSet<>();
+
+	@Builder.Default
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<EmailToken> emailTokens = new HashSet<>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude
