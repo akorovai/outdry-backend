@@ -1,8 +1,31 @@
-# Compiled class file
+# Compiled class files
 *.class
 
-# Log file
+# Log files
 *.log
+
+# IntelliJ IDEA specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Maven specific files
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Logs
+logs/
+*.log.*
 
 # BlueJ files
 *.ctxt
@@ -10,7 +33,7 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# Package Files
 *.jar
 *.war
 *.nar
@@ -19,6 +42,63 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Virtual machine crash logs
 hs_err_pid*
 replay_pid*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+
+
+# Spring Boot specific files
+spring-boot-devtools.properties
+
+# Flyway migrations
+flyway.conf
+flyway.locations
+
+# Liquibase migrations
+liquibase.properties
+
+# Test reports and logs
+**/test-output/
+**/test-results/
+**/surefire-reports/
+**/failsafe-reports/
+**/target/surefire-reports/
+**/target/failsafe-reports/
+
+# Dependency directories (remove if you deploy dependencies)
+**/lib/
+**/libs/
+
+# Gradle files (if you switch to Gradle in the future)
+.gradle/
+build/
+
+# VSCode specific files (if you use VSCode)
+.vscode/
+
+# Eclipse specific files (if you use Eclipse)
+.settings/
+.project
+.classpath
+bin/
+
+# NetBeans specific files (if you use NetBeans)
+nbproject/
+nbactions.xml
+nb-configuration.xml
+
+# Other IDE specific files
+*.swp
+*.swo
