@@ -24,7 +24,6 @@ import java.time.LocalDateTime;
 		@Index(name = "idx_review_product_id", columnList = "product_id"),
 		@Index(name = "idx_review_rating", columnList = "rating")
 })
-@EntityListeners(AuditingEntityListener.class)
 public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,16 +69,4 @@ public class Review {
 	@Column(nullable = false)
 	private LocalDateTime lastModifiedDate;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Review review = (Review) o;
-		return id != null && id.equals(review.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return getClass().hashCode();
-	}
 }

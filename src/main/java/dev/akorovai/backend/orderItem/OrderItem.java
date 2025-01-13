@@ -23,7 +23,6 @@ import java.time.LocalDateTime;
 		@Index(name = "idx_order_item_order_id", columnList = "order_id"),
 		@Index(name = "idx_order_item_product_id", columnList = "product_id")
 })
-@EntityListeners(AuditingEntityListener.class)
 public class OrderItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,16 +62,4 @@ public class OrderItem {
 	@Column(nullable = false)
 	private LocalDateTime lastModifiedDate;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		OrderItem orderItem = (OrderItem) o;
-		return id != null && id.equals(orderItem.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return getClass().hashCode();
-	}
 }
