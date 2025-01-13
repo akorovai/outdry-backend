@@ -1,4 +1,4 @@
-package dev.akorovai.backend.addressInfo;
+package dev.akorovai.backend.address_info;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.akorovai.backend.user.User;
@@ -8,7 +8,6 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
