@@ -14,6 +14,12 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 30000
       leak-detection-threshold: 5000
+      pool-name: HikariCP
+      auto-commit: true
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+      initialization-fail-timeout: 1
+      validation-timeout: 5000
+      keepalive-time: 0
 
   jpa:
     hibernate:
@@ -26,6 +32,8 @@ spring:
           batch_size: 20
           order_inserts: true
           order_updates: true
+        connection:
+          provider_disables_autocommit: false
     open-in-view: false
 
   cache:
@@ -34,23 +42,17 @@ spring:
       spec: maximumSize=1000, expireAfterWrite=10m, recordStats
     cache-names: users, products, orders
 
-#  mail:
-#    host: smtp.gmail.com
-#    port: 587
-#    username: your_email@gmail.com
-#    password: your_email_password
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          starttls:
-#            enable: true
-
-  security:
-    user:
-      name: admin
-      password: admin123
-      roles: ADMIN
+  #  mail:
+  #    host: smtp.gmail.com
+  #    port: 587
+  #    username: your_email@gmail.com
+  #    password: your_email_password
+  #    properties:
+  #      mail:
+  #        smtp:
+  #          auth: true
+  #          starttls:
+  #            enable: true
 
   actuator:
     endpoints:
@@ -61,6 +63,7 @@ spring:
       export:
         prometheus:
           enabled: true
+
 logging:
   level:
     root: INFO
@@ -69,10 +72,18 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework.security: DEBUG
     org.springframework.cache: DEBUG
-    org.springframework.beans: DEBUG
-    org.springframework.context: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
 
 server:
   port: 80
+
+# Database-specific properties
+database:
+  driver: org.postgresql.Driver
+  version: 17.2
+  autocommit: true
+  isolation-level: READ_COMMITTED
+  connection-pool:
+    minimum-size: 5
+    maximum-size: 20

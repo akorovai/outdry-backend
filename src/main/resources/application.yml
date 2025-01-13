@@ -15,8 +15,8 @@ spring:
       connection-timeout: 30000
       leak-detection-threshold: 5000
       pool-name: HikariCP
-      auto-commit: true # Autocommit mode
-      transaction-isolation: TRANSACTION_READ_COMMITTED # Isolation level
+      auto-commit: true
+      transaction-isolation: TRANSACTION_READ_COMMITTED
       initialization-fail-timeout: 1
       validation-timeout: 5000
       keepalive-time: 0
@@ -72,8 +72,6 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework.security: DEBUG
     org.springframework.cache: DEBUG
-    org.springframework.beans: DEBUG
-    org.springframework.context: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
 
