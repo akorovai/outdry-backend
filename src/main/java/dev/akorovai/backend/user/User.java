@@ -1,7 +1,7 @@
 package dev.akorovai.backend.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.akorovai.backend.addressInfo.AddressInfo;
+import dev.akorovai.backend.address_info.AddressInfo;
 import dev.akorovai.backend.emailToken.EmailToken;
 import dev.akorovai.backend.order.Order;
 import dev.akorovai.backend.review.Review;
@@ -21,10 +21,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+
 @Getter
 @Setter
 @Entity
@@ -43,10 +42,7 @@ public class User implements UserDetails, Principal {
 
 	@Column(nullable = false, length = 128)
 	private String nickname;
-	@Override
-	public String getPassword() {
-		return this.password;
-	}
+
 	@Column(nullable = false, unique = true, length = 64)
 	private String email;
 
@@ -119,6 +115,8 @@ public class User implements UserDetails, Principal {
 	@Column(nullable = false)
 	private boolean enabled;
 
+
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.roles.stream()
@@ -146,4 +144,3 @@ public class User implements UserDetails, Principal {
 		return email;
 	}
 }
-

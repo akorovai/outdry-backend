@@ -13,9 +13,10 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -51,6 +52,11 @@ public class Product {
 	@JoinColumn(name = "type_id", nullable = false)
 	private Type type;
 
+	@ElementCollection
+	@Column(name = "links", columnDefinition = "text[]")
+	@Builder.Default
+	private List<String> links = new ArrayList<>();
+
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Gender gender;
@@ -60,6 +66,10 @@ public class Product {
 
 	@Column
 	private Integer discount;
+
+	@Enumerated(EnumType.STRING) // Use EnumType.STRING to store the enum as a string in the database
+	@Column(nullable = false, length = 16) // Adjust the length as needed
+	private Size size; // Updated to use the Size enum
 
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude
@@ -96,5 +106,4 @@ public class Product {
 	@LastModifiedDate
 	@Column(nullable = false)
 	private LocalDateTime lastModifiedDate;
-
 }
