@@ -6,6 +6,7 @@ import dev.akorovai.backend.handler.email.EmailSendingException;
 import dev.akorovai.backend.handler.email.EmailTemplateException;
 import dev.akorovai.backend.handler.general.UniqueConstraintViolationException;
 import dev.akorovai.backend.handler.order.NoOrdersFoundException;
+import dev.akorovai.backend.handler.product.ProductNotFoundException;
 import dev.akorovai.backend.handler.refresh_token.TokenExpiredException;
 import dev.akorovai.backend.handler.refresh_token.TokenNotFoundException;
 import dev.akorovai.backend.handler.refresh_token.TokenRefreshException;
@@ -29,6 +30,7 @@ public enum ExceptionStatus {
 	ROLE_NOT_FOUND(RoleNotFoundException.class, NOT_FOUND),
 	TOKEN_NOT_FOUND(TokenNotFoundException.class, NOT_FOUND),
 	ORDERS_NOT_FOUND(NoOrdersFoundException.class, NOT_FOUND),
+	PRODUCT_NOT_FOUND(ProductNotFoundException.class, NOT_FOUND),
 	// BAD_REQUEST
 	METHOD_ARGUMENT_NOT_VALID(MethodArgumentNotValidException.class, BAD_REQUEST),
 	CONSTRAINT_VIOLATION(ConstraintViolationException.class, BAD_REQUEST),

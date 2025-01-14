@@ -33,16 +33,14 @@ import java.util.Set;
 public class Product {
 	@Id
 	@Column(nullable = false, length = 16)
-	private String id;
+	private Long id;
 
 	@Column(nullable = false, length = 128)
 	private String name;
-
+	@Column(nullable = false, length = 256)
+	private String description;
 	@Column(nullable = false, precision = 6)
 	private Double price;
-
-	@Column(nullable = false)
-	private Boolean inStock;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "color_id", nullable = false)
@@ -67,9 +65,9 @@ public class Product {
 	@Column
 	private Integer discount;
 
-	@Enumerated(EnumType.STRING) // Use EnumType.STRING to store the enum as a string in the database
-	@Column(nullable = false, length = 16) // Adjust the length as needed
-	private Size size; // Updated to use the Size enum
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 16)
+	private Size size;
 
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude
