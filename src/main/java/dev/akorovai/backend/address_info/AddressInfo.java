@@ -38,7 +38,7 @@ public class AddressInfo {
 	@Column(nullable = false, length = 64)
 	private String apartment;
 
-	@Column(nullable = false, length = 64)
+	@Column(nullable = false, length = 6)
 	private String postalCode;
 
 	@Column(nullable = false, length = 64)

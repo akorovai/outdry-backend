@@ -223,7 +223,6 @@ public class ProductService {
 
 		List<Product> products = productRepository.findAll();
 
-		// Group products by name
 		Map<String, List<Product>> productsByName = products.stream()
 				                                            .collect(Collectors.groupingBy(Product::getName));
 
@@ -233,14 +232,13 @@ public class ProductService {
 			String productName = entry.getKey();
 			List<Product> productsWithSameName = entry.getValue();
 
-			// Group sizes by color
+
 			Map<ColorResponse, Set<Size>> sizeAvailabilityByColor = new HashMap<>();
 			for (Product product : productsWithSameName) {
 				ColorResponse colorResponse = ColorMapper.INSTANCE.toColorResponse(product.getColor());
 				sizeAvailabilityByColor.computeIfAbsent(colorResponse, k -> new HashSet<>()).add(product.getSize());
 			}
 
-			// Use the first product in the list to create the response
 			Product firstProduct = productsWithSameName.get(0);
 			ProductWithSizeAvailabilityResponse response = productMapper.toProductWithSizeAvailabilityResponse(firstProduct);
 			response.setSizeAvailabilityByColor(sizeAvailabilityByColor);

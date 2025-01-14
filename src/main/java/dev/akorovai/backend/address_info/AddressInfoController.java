@@ -2,6 +2,7 @@ package dev.akorovai.backend.address_info;
 
 import dev.akorovai.backend.address_info.response.AddressInfoResponse;
 import dev.akorovai.backend.security.ResponseRecord;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class AddressInfoController {
 
 
 	@PostMapping
-	public ResponseEntity<ResponseRecord> addAddressForAuthenticatedUser( @RequestBody AddressInfoResponse addressInfoResponse ) {
+	public ResponseEntity<ResponseRecord> addAddressForAuthenticatedUser( @Valid @RequestBody AddressInfoResponse addressInfoResponse ) {
 		AddressInfoResponse savedAddress = addressInfoService.addAddressForAuthenticatedUser(addressInfoResponse);
 
 
@@ -39,7 +40,7 @@ public class AddressInfoController {
 
 
 	@PutMapping("/{addressId}")
-	public ResponseEntity<ResponseRecord> editAddressForAuthenticatedUser( @PathVariable Long addressId, @RequestBody AddressInfoResponse addressInfoResponse ) {
+	public ResponseEntity<ResponseRecord> editAddressForAuthenticatedUser( @PathVariable Long addressId,@Valid @RequestBody AddressInfoResponse addressInfoResponse ) {
 		AddressInfoResponse updatedAddress = addressInfoService.editAddressForAuthenticatedUser(addressId, addressInfoResponse);
 
 
