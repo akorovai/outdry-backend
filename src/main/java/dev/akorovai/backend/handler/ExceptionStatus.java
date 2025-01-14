@@ -10,6 +10,10 @@ import dev.akorovai.backend.handler.product.ProductNotFoundException;
 import dev.akorovai.backend.handler.refresh_token.TokenExpiredException;
 import dev.akorovai.backend.handler.refresh_token.TokenNotFoundException;
 import dev.akorovai.backend.handler.refresh_token.TokenRefreshException;
+import dev.akorovai.backend.handler.shopping_cart.InsufficientStockException;
+import dev.akorovai.backend.handler.shopping_cart.ShoppingCartItemNotFoundException;
+import dev.akorovai.backend.handler.shopping_cart.UnauthorizedItemDeletionException;
+import dev.akorovai.backend.handler.shopping_cart.UnauthorizedItemModificationException;
 import dev.akorovai.backend.handler.user.UserNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.context.ApplicationContextException;
@@ -31,18 +35,22 @@ public enum ExceptionStatus {
 	TOKEN_NOT_FOUND(TokenNotFoundException.class, NOT_FOUND),
 	ORDERS_NOT_FOUND(NoOrdersFoundException.class, NOT_FOUND),
 	PRODUCT_NOT_FOUND(ProductNotFoundException.class, NOT_FOUND),
+	SHOPPING_CART_ITEM_NOT_FOUND(ShoppingCartItemNotFoundException.class, NOT_FOUND),
+
 	// BAD_REQUEST
 	METHOD_ARGUMENT_NOT_VALID(MethodArgumentNotValidException.class, BAD_REQUEST),
 	CONSTRAINT_VIOLATION(ConstraintViolationException.class, BAD_REQUEST),
 
 	TOKEN_REFRESH(TokenRefreshException.class, BAD_REQUEST),
 	TOKEN_EXPIRED(TokenExpiredException.class, BAD_REQUEST),
+	INSUFFICIENT_STOCK(InsufficientStockException.class, BAD_REQUEST),
 
 
 	FILE_TYPE_EXCEPTION(FileTypeException.class, BAD_REQUEST),
 	// UNAUTHORIZED
 	BAD_CREDENTIALS(BadCredentialsException.class, UNAUTHORIZED),
-
+	UNAUTHORIZED_ITEM_DELETION(UnauthorizedItemDeletionException.class, UNAUTHORIZED),
+	UNAUTHORIZED_ITEM_MODIFICATION(UnauthorizedItemModificationException.class, UNAUTHORIZED),
 	// CONFLICT
 	UNIQUE_CONSTRAINT_VIOLATION(UniqueConstraintViolationException.class, CONFLICT),
 
