@@ -12,6 +12,7 @@ import dev.akorovai.backend.type.Type;
 import dev.akorovai.backend.type.TypeMapper;
 import dev.akorovai.backend.type.TypeRepository;
 import dev.akorovai.backend.type.response.TypeResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,7 @@ public class ProductService {
 				       });
 	}
 
+	@Transactional
 	public ProductResponse addProduct(ProductRequest productRequest) {
 		log.info("Attempting to add a new product with name: {}", productRequest.getName());
 
@@ -48,6 +50,7 @@ public class ProductService {
 		return productMapper.toProductResponse(savedProduct);
 	}
 
+	@Transactional
 	public ProductResponse modifyProductById(ProductRequest productRequest, long productId) {
 		log.info("Attempting to modify product with ID: {}", productId);
 
@@ -60,6 +63,7 @@ public class ProductService {
 		return productMapper.toProductResponse(updatedProduct);
 	}
 
+	@Transactional
 	public void deleteProduct(long productId) {
 		log.info("Attempting to delete product with ID: {}", productId);
 
@@ -72,6 +76,7 @@ public class ProductService {
 		log.info("Product with ID: {} successfully deleted", productId);
 	}
 
+	@Transactional
 	public void addDiscount(int discount, long productId) {
 		log.info("Attempting to add discount: {} to product with ID: {}", discount, productId);
 

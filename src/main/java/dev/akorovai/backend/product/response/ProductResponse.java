@@ -20,7 +20,7 @@ public class ProductResponse {
 	private Double price;
 	private ColorResponse color;
 	private TypeResponse type;
-	private List<String> links;
+//	private List<String> links;
 	private Gender gender;
 	private Integer amount;
 	private Integer discount;

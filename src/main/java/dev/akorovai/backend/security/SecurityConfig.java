@@ -27,7 +27,8 @@ public class SecurityConfig {
 	private final JwtFilter jwtFilter;
 
 	private static final String[] PUBLIC_PATHS = {
-		"/api/auth"
+		"/api/auth/register",
+		"/api/auth/authenticate"
 	};
 
 	private static final String[] ADMIN_PATHS = {
