@@ -26,7 +26,7 @@ public class Color {
 	private String name;
 
 	@Column
-	private Integer code;
+	private String code;
 
 	@OneToMany(mappedBy = "color", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude

@@ -10,7 +10,7 @@ import lombok.Getter;
 public class ColorResponse {
     private Long id;
     private String name;
-    private Integer code;
+    private String code;
     @Override
     public String toString() {
         return name;

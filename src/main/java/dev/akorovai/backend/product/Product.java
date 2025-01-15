@@ -13,6 +13,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import java.util.Set;
 		@Index(name = "idx_product_type_id", columnList = "type_id"),
 		@Index(name = "idx_product_name", columnList = "name")
 })
+@EntityListeners(AuditingEntityListener.class)
 public class Product {
 	@Id
 	@Column(nullable = false, length = 16)
@@ -50,10 +52,10 @@ public class Product {
 	@JoinColumn(name = "type_id", nullable = false)
 	private Type type;
 
-	@ElementCollection
-	@Column(name = "links", columnDefinition = "text[]")
-	@Builder.Default
-	private List<String> links = new ArrayList<>();
+//	@ElementCollection
+//	@Column(name = "links", columnDefinition = "text[]")
+//	@Builder.Default
+//	private List<String> links = new ArrayList<>();
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
@@ -89,19 +91,8 @@ public class Product {
 	@JsonIgnore
 	private Set<Review> reviews;
 
-	@CreatedBy
-	@Column(nullable = false, updatable = false)
-	private String createdBy;
-
 	@CreatedDate
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdDate;
 
-	@LastModifiedBy
-	@Column(nullable = false)
-	private String lastModifiedBy;
-
-	@LastModifiedDate
-	@Column(nullable = false)
-	private LocalDateTime lastModifiedDate;
 }
