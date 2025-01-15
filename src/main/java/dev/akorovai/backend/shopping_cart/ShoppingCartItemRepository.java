@@ -18,4 +18,6 @@ public interface ShoppingCartItemRepository extends JpaRepository<ShoppingCartIt
 	Optional<ShoppingCartItem> findByIdWithProduct(@Param("itemId") Long itemId);
 
 	Optional<ShoppingCartItem> findByUserAndProduct( User user, Product product);
+
+	List<ShoppingCartItem> findByUser( User user );
 }

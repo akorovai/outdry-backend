@@ -14,7 +14,7 @@ import java.util.List;
 public class ShoppingCartController {
 
     private final ShoppingCartItemService shoppingCartItemService;
-
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/items")
     public ResponseRecord getShoppingCartItems() {
         List<ShoppingCartItemResponse> cartItems = shoppingCartItemService.getShoppingCartItemsByUserId();
@@ -23,7 +23,7 @@ public class ShoppingCartController {
                        .message(cartItems)
                        .build();
     }
-
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/items/{itemId}")
     public ResponseRecord deleteShoppingCartItem(@PathVariable Long itemId) {
         shoppingCartItemService.deleteShoppingCartItem(itemId);
@@ -32,7 +32,7 @@ public class ShoppingCartController {
                        .message("Shopping cart item deleted successfully")
                        .build();
     }
-
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/items/{itemId}/quantity")
     public ResponseRecord updateShoppingCartItemQuantity(
             @PathVariable Long itemId,
@@ -44,7 +44,7 @@ public class ShoppingCartController {
                        .message("Shopping cart item quantity updated successfully")
                        .build();
     }
-
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/items")
     public ResponseRecord addProductToCart(@RequestParam Long productId) {
         shoppingCartItemService.addProductToCart(productId);

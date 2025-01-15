@@ -2,10 +2,7 @@ package dev.akorovai.backend.refresh_token;
 
 import dev.akorovai.backend.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.Instant;
@@ -15,6 +12,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "refresh_tokens")
 public class RefreshToken {
 

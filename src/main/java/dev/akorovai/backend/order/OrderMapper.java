@@ -1,7 +1,7 @@
 package dev.akorovai.backend.order;
 
 
-import dev.akorovai.backend.order.dto.OrderResponse;
+import dev.akorovai.backend.order.response.OrderResponse;
 import dev.akorovai.backend.orderItem.OrderItemMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

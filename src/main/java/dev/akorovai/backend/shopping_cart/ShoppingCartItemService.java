@@ -41,7 +41,6 @@ public class ShoppingCartItemService {
 			shoppingCartItemRepository.deleteAll(outOfStockItems);
 		}
 
-		// Return only in-stock items
 		return shoppingCartItems.stream()
 				       .filter(item -> item.getProduct().getAmount() > 0)
 				       .map(shoppingCartItemMapper::toShoppingCartItemResponse)
