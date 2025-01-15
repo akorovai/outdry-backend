@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Builder
 public class ReviewResponse {
     private Long id;
-    private Short rating;
+    private Integer rating;
     private String comment;
     private LocalDateTime createdAt;
     private String subject;

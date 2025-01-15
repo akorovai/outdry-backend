@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
@@ -23,18 +22,26 @@ public class ReviewService {
 	private final ProductRepository productRepository;
 	private final JwtService jwtService;
 
-	public List<ReviewResponse> getReviewsByProductId( Long productId ) {
-		return reviewRepository.findByProductId(productId).stream().map(ReviewMapper.INSTANCE::toReviewResponse).toList();
+	public List<ReviewResponse> getReviewsByProductId(Long productId) {
+		return reviewRepository.findByProductId(productId).stream()
+				       .map(ReviewMapper.INSTANCE::toReviewResponse)
+				       .toList();
 	}
 
 	@Transactional
-	public void addReviewToProduct( AddReviewRequest request ) {
-		Product product = productRepository.findById(request.getProductId()).orElseThrow(() -> new ProductNotFoundException("Product not found"));
+	public void addReviewToProduct(AddReviewRequest request) {
+
+		Product product = productRepository.findById(request.getProductId())
+				                  .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+
+		if (request.getRating() < 1 || request.getRating() > 5) {
+			throw new RuntimeException("Rating must be between 1 and 5");
+		}
+
 
 		User user = jwtService.getAuthenticatedUser();
 
 		Review review = ReviewMapper.INSTANCE.toReview(request, user, product);
-
 		reviewRepository.save(review);
 	}
 }

@@ -29,7 +29,7 @@ public class Review {
 	private Long id;
 
 	@Column(nullable = false)
-	private Short rating;
+	private Integer rating;
 
 	@Column(nullable = false)
 	private String comment;

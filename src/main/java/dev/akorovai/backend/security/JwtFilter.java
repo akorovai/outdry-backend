@@ -24,7 +24,8 @@ public class JwtFilter extends OncePerRequestFilter {
 	private final UserDetailsService userDetailsService;
 
 	@Override
-	protected void doFilterInternal( @NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain ) throws ServletException, IOException {
+	public void doFilterInternal( @NonNull HttpServletRequest request,
+	                         @NonNull HttpServletResponse response, @NonNull FilterChain filterChain ) throws ServletException, IOException {
 		if ( isAuthenticationPath(request) ) {
 			filterChain.doFilter(request, response);
 			return;
@@ -44,11 +45,12 @@ public class JwtFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 	}
 
-	private boolean isAuthenticationPath( HttpServletRequest request ) {
-		return request.getServletPath().contains("/api/auth") && !request.getRequestURI().contains("logout");
+	public boolean isAuthenticationPath( HttpServletRequest request ) {
+		String requestURI = request.getServletPath();
+		return requestURI.contains("/api/auth") && !requestURI.contains("logout");
 	}
 
-	private String getJwtFromRequest( HttpServletRequest request ) {
+	protected String getJwtFromRequest( HttpServletRequest request ) {
 		final String authHeader = request.getHeader("Authorization");
 		if ( authHeader != null && authHeader.startsWith("Bearer ") ) {
 			return authHeader.substring(7);
