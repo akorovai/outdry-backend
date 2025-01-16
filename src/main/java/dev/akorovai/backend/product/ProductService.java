@@ -87,6 +87,7 @@ public class ProductService {
 		log.info("Discount: {} successfully applied to product with ID: {}", discount, productId);
 	}
 
+	@Transactional
 	public List<ProductResponse> getRandomDiscountedProducts() {
 		log.info("Attempting to retrieve discounted products in random order");
 
@@ -99,6 +100,7 @@ public class ProductService {
 				       .collect(Collectors.toList());
 	}
 
+	@Transactional
 	public List<ProductResponse> getSimilarProducts(long productId) {
 		log.info("Attempting to find similar products for product with ID: {}", productId);
 
@@ -137,6 +139,7 @@ public class ProductService {
 				       .collect(Collectors.toList());
 	}
 
+	@Transactional
 	public List<ProductResponse> getProductsByType(String typeName) {
 		log.info("Attempting to retrieve products by type: {}", typeName);
 
@@ -153,6 +156,7 @@ public class ProductService {
 				       .collect(Collectors.toList());
 	}
 
+	@Transactional
 	public List<ProductResponse> getProductsByGender(Gender gender) {
 		log.info("Attempting to retrieve products by gender: {}", gender);
 
@@ -164,6 +168,7 @@ public class ProductService {
 				       .collect(Collectors.toList());
 	}
 
+	@Transactional
 	public List<ProductResponse> getNewProducts() {
 		log.info("Attempting to retrieve new products");
 
@@ -202,6 +207,7 @@ public class ProductService {
 	}
 
 
+	@Transactional
 	public ProductWithSizeAvailabilityResponse getProductWithSizeAvailability(long productId) {
 		log.info("Attempting to retrieve product with size availability for product ID: {}", productId);
 
@@ -223,6 +229,7 @@ public class ProductService {
 		return response;
 	}
 
+	@Transactional
 	public List<ProductWithSizeAvailabilityResponse> getProductsWithSizeAvailability() {
 		log.info("Attempting to retrieve products with size availability");
 
