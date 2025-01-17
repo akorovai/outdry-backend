@@ -18,7 +18,7 @@ public class ProductRequest {
 	private Long id;
 	private String name;
 	private String description;
-	private List<String> links;
+//	private List<String> links;
 	private Integer amount;
 	private Integer discount;
 	private Size size;

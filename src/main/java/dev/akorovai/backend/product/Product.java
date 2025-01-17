@@ -52,7 +52,7 @@ public class Product {
 	@ElementCollection
 	@Column(name = "links", columnDefinition = "text[]")
 	@Builder.Default
-	private List<String> links = new ArrayList<>();
+  private List<String> links = new ArrayList<>();
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)

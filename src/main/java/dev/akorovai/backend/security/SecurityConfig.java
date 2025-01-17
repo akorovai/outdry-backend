@@ -26,8 +26,10 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
 
+
     private final AuthenticationProvider authenticationProvider;
     private final JwtFilter jwtFilter;
+
 
     private static final Map<String, Map<HttpMethod, String[]>> ROLE_PATHS = Map.of(
             "PUBLIC", Map.of(
