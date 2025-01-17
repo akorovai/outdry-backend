@@ -47,6 +47,7 @@
             <artifactId>dotenv-java</artifactId>
             <version>${dotenv.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>

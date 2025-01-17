@@ -126,11 +126,12 @@ public class ProductController {
             @RequestParam(required = false) Double maxPrice) {
         TypeResponse typeResponse = type != null ? new TypeResponse(1L, type) : null;
         Gender genderEnum = gender != null ? Gender.valueOf(gender.toUpperCase()) : null;
-        ColorResponse colorResponse = color != null ? new ColorResponse(1L, color, 123456) : null;
+        ColorResponse colorResponse = color != null ? new ColorResponse(1L, color, "123456") : null;
         Size sizeEnum = size != null ? Size.valueOf(size.toUpperCase()) : null;
 
         List<ProductResponse> responses = productService.getAllProductsWithFilters(
-                typeResponse, genderEnum, colorResponse, sizeEnum, minPrice, maxPrice);
+                typeResponse, genderEnum, colorResponse, sizeEnum, minPrice, maxPrice
+        );
 
         ResponseRecord responseRecord = ResponseRecord.builder()
                                                 .code(HttpStatus.OK.value())

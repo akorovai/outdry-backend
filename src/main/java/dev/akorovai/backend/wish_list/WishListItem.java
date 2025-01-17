@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 		@Index(name = "idx_wish_list_item_user_id", columnList = "user_id"),
 		@Index(name = "idx_wish_list_item_product_id", columnList = "product_id")
 })
+@EntityListeners(AuditingEntityListener.class)
 public class WishListItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,21 +41,8 @@ public class WishListItem {
 	@JsonIgnore
 	private User user;
 
-	@CreatedBy
-	@Column(nullable = false, updatable = false)
-	private String createdBy;
-
 	@CreatedDate
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdDate;
-
-	@LastModifiedBy
-	@Column(nullable = false)
-	private String lastModifiedBy;
-
-	@LastModifiedDate
-	@Column(nullable = false)
-	private LocalDateTime lastModifiedDate;
-
 
 }

@@ -12,6 +12,7 @@ import dev.akorovai.backend.type.Type;
 import dev.akorovai.backend.type.TypeMapper;
 import dev.akorovai.backend.type.TypeRepository;
 import dev.akorovai.backend.type.response.TypeResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,7 @@ public class ProductService {
 				       });
 	}
 
+	@Transactional
 	public ProductResponse addProduct(ProductRequest productRequest) {
 		log.info("Attempting to add a new product with name: {}", productRequest.getName());
 
@@ -48,6 +50,7 @@ public class ProductService {
 		return productMapper.toProductResponse(savedProduct);
 	}
 
+	@Transactional
 	public ProductResponse modifyProductById(ProductRequest productRequest, long productId) {
 		log.info("Attempting to modify product with ID: {}", productId);
 
@@ -60,6 +63,7 @@ public class ProductService {
 		return productMapper.toProductResponse(updatedProduct);
 	}
 
+	@Transactional
 	public void deleteProduct(long productId) {
 		log.info("Attempting to delete product with ID: {}", productId);
 
@@ -72,6 +76,7 @@ public class ProductService {
 		log.info("Product with ID: {} successfully deleted", productId);
 	}
 
+	@Transactional
 	public void addDiscount(int discount, long productId) {
 		log.info("Attempting to add discount: {} to product with ID: {}", discount, productId);
 
@@ -82,6 +87,7 @@ public class ProductService {
 		log.info("Discount: {} successfully applied to product with ID: {}", discount, productId);
 	}
 
+	@Transactional
 	public List<ProductResponse> getRandomDiscountedProducts() {
 		log.info("Attempting to retrieve discounted products in random order");
 
@@ -94,6 +100,7 @@ public class ProductService {
 				       .collect(Collectors.toList());
 	}
 
+	@Transactional
 	public List<ProductResponse> getSimilarProducts(long productId) {
 		log.info("Attempting to find similar products for product with ID: {}", productId);
 
@@ -132,6 +139,7 @@ public class ProductService {
 				       .collect(Collectors.toList());
 	}
 
+	@Transactional
 	public List<ProductResponse> getProductsByType(String typeName) {
 		log.info("Attempting to retrieve products by type: {}", typeName);
 
@@ -148,6 +156,7 @@ public class ProductService {
 				       .collect(Collectors.toList());
 	}
 
+	@Transactional
 	public List<ProductResponse> getProductsByGender(Gender gender) {
 		log.info("Attempting to retrieve products by gender: {}", gender);
 
@@ -159,6 +168,7 @@ public class ProductService {
 				       .collect(Collectors.toList());
 	}
 
+	@Transactional
 	public List<ProductResponse> getNewProducts() {
 		log.info("Attempting to retrieve new products");
 
@@ -197,6 +207,7 @@ public class ProductService {
 	}
 
 
+	@Transactional
 	public ProductWithSizeAvailabilityResponse getProductWithSizeAvailability(long productId) {
 		log.info("Attempting to retrieve product with size availability for product ID: {}", productId);
 
@@ -218,6 +229,7 @@ public class ProductService {
 		return response;
 	}
 
+	@Transactional
 	public List<ProductWithSizeAvailabilityResponse> getProductsWithSizeAvailability() {
 		log.info("Attempting to retrieve products with size availability");
 
