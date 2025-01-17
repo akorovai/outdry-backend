@@ -130,7 +130,8 @@ public class ProductController {
         Size sizeEnum = size != null ? Size.valueOf(size.toUpperCase()) : null;
 
         List<ProductResponse> responses = productService.getAllProductsWithFilters(
-                typeResponse, genderEnum, colorResponse, sizeEnum, minPrice, maxPrice);
+                typeResponse, genderEnum, colorResponse, sizeEnum, minPrice, maxPrice
+        );
 
         ResponseRecord responseRecord = ResponseRecord.builder()
                                                 .code(HttpStatus.OK.value())

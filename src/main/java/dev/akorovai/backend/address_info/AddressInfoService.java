@@ -4,6 +4,7 @@ import dev.akorovai.backend.address_info.response.AddressInfoResponse;
 import dev.akorovai.backend.security.JwtService;
 import dev.akorovai.backend.user.User;
 import dev.akorovai.backend.user.UserService;
+import jakarta.persistence.Version;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

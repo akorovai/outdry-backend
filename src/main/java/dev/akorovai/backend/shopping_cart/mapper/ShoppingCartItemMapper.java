@@ -1,6 +1,6 @@
 package dev.akorovai.backend.shopping_cart.mapper;
 
-import dev.akorovai.backend.review.mapper.ReviewMapper;
+import dev.akorovai.backend.color.Color;
 import dev.akorovai.backend.shopping_cart.ShoppingCartItem;
 import dev.akorovai.backend.shopping_cart.response.ShoppingCartItemResponse;
 import dev.akorovai.backend.product.mapper.ProductMapper;
@@ -16,4 +16,11 @@ public interface ShoppingCartItemMapper {
     @Mapping(source = "product", target = "product")
     @Mapping(source = "user.id", target = "userId")
     ShoppingCartItemResponse toShoppingCartItemResponse(ShoppingCartItem shoppingCartItem);
+
+    default String mapColorToString(Color color) {
+        if (color == null) {
+            return null;
+        }
+        return color.getName();
+    }
 }

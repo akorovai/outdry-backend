@@ -19,7 +19,7 @@ public interface OrderItemMapper {
 	@Mapping(source = "product.name", target = "productName")
 	@Mapping(source = "product.size.displayName", target = "size")
 	@Mapping(source = "product.color.name", target = "color")
-//	@Mapping(source = "product.links", target = "imageLink")
+	@Mapping(source = "product.links", target = "imageLink")
 	OrderItemResponse toResponse( OrderItem orderItem);
 
 	default Set<OrderItemResponse> toResponseSet( Set<OrderItem> orderItems) {

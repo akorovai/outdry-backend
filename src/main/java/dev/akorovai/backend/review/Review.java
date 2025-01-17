@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -23,6 +24,7 @@ import java.time.LocalDateTime;
 		@Index(name = "idx_review_product_id", columnList = "product_id"),
 		@Index(name = "idx_review_rating", columnList = "rating")
 })
+@EntityListeners(AuditingEntityListener.class)
 public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +36,7 @@ public class Review {
 	@Column(nullable = false)
 	private String comment;
 
+	@CreatedDate
 	@Column(nullable = false)
 	private LocalDateTime createdAt;
 
@@ -51,21 +54,5 @@ public class Review {
 
 	@Column(nullable = false, length = 64)
 	private String subject;
-
-	@CreatedBy
-	@Column(nullable = false, updatable = false)
-	private String createdBy;
-
-	@CreatedDate
-	@Column(nullable = false, updatable = false)
-	private LocalDateTime createdDate;
-
-	@LastModifiedBy
-	@Column(nullable = false)
-	private String lastModifiedBy;
-
-	@LastModifiedDate
-	@Column(nullable = false)
-	private LocalDateTime lastModifiedDate;
 
 }
