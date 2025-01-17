@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 		@Index(name = "idx_address_info_user_id", columnList = "user_id"),
 		@Index(name = "idx_address_info_state_city_postal_code", columnList = "state, city, postal_code")
 })
+@EntityListeners(AuditingEntityListener.class)
 public class AddressInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +40,7 @@ public class AddressInfo {
 	@Column(nullable = false, length = 64)
 	private String apartment;
 
-	@Column(nullable = false, length = 64)
+	@Column(nullable = false, length = 6)
 	private String postalCode;
 
 	@Column(nullable = false, length = 64)
@@ -53,20 +55,8 @@ public class AddressInfo {
 	@JsonIgnore
 	private User user;
 
-	@CreatedBy
-	@Column(nullable = false, updatable = false)
-	private String createdBy;
-
 	@CreatedDate
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdDate;
-
-	@LastModifiedBy
-	@Column(nullable = false)
-	private String lastModifiedBy;
-
-	@LastModifiedDate
-	@Column(nullable = false)
-	private LocalDateTime lastModifiedDate;
 
 }

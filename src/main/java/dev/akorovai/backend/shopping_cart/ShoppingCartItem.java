@@ -11,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -23,6 +24,7 @@ import java.time.LocalDateTime;
 		@Index(name = "idx_shopping_cart_item_user_id", columnList = "user_id"),
 		@Index(name = "idx_shopping_cart_item_product_id", columnList = "product_id")
 })
+@EntityListeners(AuditingEntityListener.class)
 public class ShoppingCartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,19 +45,7 @@ public class ShoppingCartItem {
 	@JsonIgnore
 	private User user;
 
-	@CreatedBy
-	@Column(nullable = false, updatable = false)
-	private String createdBy;
-
 	@CreatedDate
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdDate;
-
-	@LastModifiedBy
-	@Column(nullable = false)
-	private String lastModifiedBy;
-
-	@LastModifiedDate
-	@Column(nullable = false)
-	private LocalDateTime lastModifiedDate;
 }

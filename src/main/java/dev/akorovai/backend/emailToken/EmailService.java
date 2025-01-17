@@ -65,7 +65,7 @@ public class EmailService {
 		log.info("Validation email successfully sent to: {}", to);
 	}
 
-	private String prepareEmailBody(String templatePath, String emailToken, String tokenPlaceholder) throws IOException {
+	protected String prepareEmailBody( String templatePath, String emailToken, String tokenPlaceholder ) throws IOException {
 		log.debug("Preparing email body using template: {}", templatePath);
 
 		try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(templatePath)) {

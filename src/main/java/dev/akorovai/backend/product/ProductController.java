@@ -93,6 +93,9 @@ public class ProductController {
                                                 .build();
         return ResponseEntity.ok(responseRecord);
     }
+
+
+
     @GetMapping("/gender/{gender}")
     public ResponseEntity<ResponseRecord> getProductsByGender(@PathVariable Gender gender) {
         List<ProductResponse> responses = productService.getProductsByGender(gender);
@@ -112,7 +115,7 @@ public class ProductController {
                                                 .build();
         return ResponseEntity.ok(responseRecord);
     }
-    // this one
+
     @GetMapping("/filter")
     public ResponseEntity<ResponseRecord> getAllProductsWithFilters(
             @RequestParam(required = false) String type,
@@ -127,7 +130,8 @@ public class ProductController {
         Size sizeEnum = size != null ? Size.valueOf(size.toUpperCase()) : null;
 
         List<ProductResponse> responses = productService.getAllProductsWithFilters(
-                typeResponse, genderEnum, colorResponse, sizeEnum, minPrice, maxPrice);
+                typeResponse, genderEnum, colorResponse, sizeEnum, minPrice, maxPrice
+        );
 
         ResponseRecord responseRecord = ResponseRecord.builder()
                                                 .code(HttpStatus.OK.value())

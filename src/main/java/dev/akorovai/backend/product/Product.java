@@ -9,10 +9,7 @@ import dev.akorovai.backend.type.Type;
 import dev.akorovai.backend.wish_list.WishListItem;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -52,10 +49,10 @@ public class Product {
 	@JoinColumn(name = "type_id", nullable = false)
 	private Type type;
 
-//	@ElementCollection
-//	@Column(name = "links", columnDefinition = "text[]")
-//	@Builder.Default
-//	private List<String> links = new ArrayList<>();
+	@ElementCollection
+	@Column(name = "links", columnDefinition = "text[]")
+	@Builder.Default
+  private List<String> links = new ArrayList<>();
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)

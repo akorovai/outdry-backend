@@ -87,6 +87,7 @@ public class ProductService {
 		log.info("Discount: {} successfully applied to product with ID: {}", discount, productId);
 	}
 
+	@Transactional
 	public List<ProductResponse> getRandomDiscountedProducts() {
 		log.info("Attempting to retrieve discounted products in random order");
 
@@ -99,6 +100,7 @@ public class ProductService {
 				       .collect(Collectors.toList());
 	}
 
+	@Transactional
 	public List<ProductResponse> getSimilarProducts(long productId) {
 		log.info("Attempting to find similar products for product with ID: {}", productId);
 
@@ -137,6 +139,7 @@ public class ProductService {
 				       .collect(Collectors.toList());
 	}
 
+	@Transactional
 	public List<ProductResponse> getProductsByType(String typeName) {
 		log.info("Attempting to retrieve products by type: {}", typeName);
 
@@ -153,6 +156,7 @@ public class ProductService {
 				       .collect(Collectors.toList());
 	}
 
+	@Transactional
 	public List<ProductResponse> getProductsByGender(Gender gender) {
 		log.info("Attempting to retrieve products by gender: {}", gender);
 
@@ -164,6 +168,7 @@ public class ProductService {
 				       .collect(Collectors.toList());
 	}
 
+	@Transactional
 	public List<ProductResponse> getNewProducts() {
 		log.info("Attempting to retrieve new products");
 
@@ -202,6 +207,7 @@ public class ProductService {
 	}
 
 
+	@Transactional
 	public ProductWithSizeAvailabilityResponse getProductWithSizeAvailability(long productId) {
 		log.info("Attempting to retrieve product with size availability for product ID: {}", productId);
 
@@ -223,12 +229,12 @@ public class ProductService {
 		return response;
 	}
 
+	@Transactional
 	public List<ProductWithSizeAvailabilityResponse> getProductsWithSizeAvailability() {
 		log.info("Attempting to retrieve products with size availability");
 
 		List<Product> products = productRepository.findAll();
 
-		// Group products by name
 		Map<String, List<Product>> productsByName = products.stream()
 				                                            .collect(Collectors.groupingBy(Product::getName));
 
@@ -238,14 +244,13 @@ public class ProductService {
 			String productName = entry.getKey();
 			List<Product> productsWithSameName = entry.getValue();
 
-			// Group sizes by color
+
 			Map<ColorResponse, Set<Size>> sizeAvailabilityByColor = new HashMap<>();
 			for (Product product : productsWithSameName) {
 				ColorResponse colorResponse = ColorMapper.INSTANCE.toColorResponse(product.getColor());
 				sizeAvailabilityByColor.computeIfAbsent(colorResponse, k -> new HashSet<>()).add(product.getSize());
 			}
 
-			// Use the first product in the list to create the response
 			Product firstProduct = productsWithSameName.get(0);
 			ProductWithSizeAvailabilityResponse response = productMapper.toProductWithSizeAvailabilityResponse(firstProduct);
 			response.setSizeAvailabilityByColor(sizeAvailabilityByColor);

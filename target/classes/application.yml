@@ -3,9 +3,9 @@ spring:
     name: outdry-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/outdry_db
+    url: jdbc:postgresql://outdrypostgres.postgres.database.azure.com:5432/postgres?sslmode=require
     username: akorovai
-    password: akorovai
+    password: Zxcvbnhuy*
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 20
@@ -92,6 +92,7 @@ application:
         expiration: 900000
       refresh-token:
         expiration: 604800000
+
 azure:
   storage:
-    connection-string: ""
+    connection-string: ${AZURE_STORAGE_CONNECTION_STRING}

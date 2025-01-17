@@ -16,7 +16,7 @@ public class RolesInitializer implements CommandLineRunner {
 		createRoleIfNotExists("ROLE_ADMIN");
 	}
 
-	private void createRoleIfNotExists(String roleName) {
+	protected void createRoleIfNotExists( String roleName ) {
 		repository.findByName(roleName).ifPresentOrElse(
 				existingRole -> {},
 				() -> {

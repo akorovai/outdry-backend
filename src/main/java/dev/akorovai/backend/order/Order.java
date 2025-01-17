@@ -25,6 +25,7 @@ import java.util.Set;
 		@Index(name = "idx_order_status", columnList = "status"),
 		@Index(name = "idx_order_created_at", columnList = "createdAt")
 })
+@EntityListeners(AuditingEntityListener.class)
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +53,10 @@ public class Order {
 	@Column(nullable = false, precision = 6)
 	private Double shippingPrice;
 
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private PaymentMethod paymentMethod;
+
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude
 	@JsonIgnore
@@ -72,5 +77,4 @@ public class Order {
 	@LastModifiedDate
 	@Column(nullable = false)
 	private LocalDateTime lastModifiedDate;
-
 }

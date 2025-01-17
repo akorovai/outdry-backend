@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Setter
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@NoArgsConstructor
 @SuperBuilder
 @Table(name = "users", indexes = {
 		@Index(name = "idx_user_email", columnList = "email", unique = true),
