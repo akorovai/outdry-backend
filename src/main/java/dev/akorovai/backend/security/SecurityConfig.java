@@ -27,10 +27,8 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
 
-
     private final AuthenticationProvider authenticationProvider;
     private final JwtFilter jwtFilter;
-
 
     private static final Map<String, Map<HttpMethod, String[]>> ROLE_PATHS = Map.of(
             "PUBLIC", Map.of(
@@ -41,6 +39,34 @@ public class SecurityConfig {
                     HttpMethod.GET, new String[]{"/api/products/filter"},
                     HttpMethod.PUT, new String[]{"/api/products/{productId}"},
                     HttpMethod.DELETE, new String[]{"/api/products/{productId}"}
+            ),
+            "USER", Map.of(
+                    HttpMethod.GET, new String[]{
+                            "/api/wishlist/products",
+                            "/api/shopping-cart/items",
+                            "/api/reviews/product/{productId}",
+                            "/api/orders",
+                            "/api/addresses"
+                    },
+                    HttpMethod.POST, new String[]{
+                            "/api/wishlist/add/{productId}",
+                            "/api/shopping-cart/items",
+                            "/api/reviews",
+                            "/api/orders",
+                            "/api/addresses"
+                    },
+                    HttpMethod.PUT, new String[]{
+                            "/api/addresses/{addressId}"
+                    },
+                    HttpMethod.PATCH, new String[]{
+                            "/api/shopping-cart/items/{itemId}/quantity"
+                    },
+                    HttpMethod.DELETE, new String[]{
+                            "/api/wishlist/delete/{productId}",
+                            "/api/wishlist/delete-all",
+                            "/api/shopping-cart/items/{itemId}",
+                            "/api/addresses/{addressId}"
+                    }
             )
     );
 
