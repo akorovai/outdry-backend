@@ -470,21 +470,21 @@ public class ProductServiceTest {
 		Product product1 = Product.builder()
 				                   .id(1L)
 				                   .name("T-Shirt")
-				                   .color(Color.builder().id(1L).name("Red").code(123456).build())
+				                   .color(Color.builder().id(1L).name("Red").code("123456").build())
 				                   .size(Size.M)
 				                   .build();
 
 		Product product2 = Product.builder()
 				                   .id(2L)
 				                   .name("T-Shirt")
-				                   .color(Color.builder().id(1L).name("Red").code(123456).build())
+				                   .color(Color.builder().id(1L).name("Red").code("123456").build())
 				                   .size(Size.L)
 				                   .build();
 
 		Product product3 = Product.builder()
 				                   .id(3L)
 				                   .name("Jeans")
-				                   .color(Color.builder().id(2L).name("Blue").code(654321).build())
+				                   .color(Color.builder().id(2L).name("Blue").code("654321").build())
 				                   .size(Size.M)
 				                   .build();
 
@@ -496,10 +496,10 @@ public class ProductServiceTest {
 		ProductWithSizeAvailabilityResponse response1 = ProductWithSizeAvailabilityResponse.builder()
 				                                                .id(1L)
 				                                                .name("T-Shirt")
-				                                                .color(new ColorResponse(1L, "Red", 123456))
+				                                                .color(new ColorResponse(1L, "Red", "123456"))
 				                                                .size(Size.M)
 				                                                .sizeAvailabilityByColor(Map.of(
-						                                                new ColorResponse(1L, "Red", 123456),
+						                                                new ColorResponse(1L, "Red", "123456"),
 						                                                Set.of(Size.M, Size.L)
 				                                                ))
 				                                                .build();
@@ -507,10 +507,10 @@ public class ProductServiceTest {
 		ProductWithSizeAvailabilityResponse response2 = ProductWithSizeAvailabilityResponse.builder()
 				                                                .id(3L)
 				                                                .name("Jeans")
-				                                                .color(new ColorResponse(2L, "Blue", 654321))
+				                                                .color(new ColorResponse(2L, "Blue", "654321"))
 				                                                .size(Size.M)
 				                                                .sizeAvailabilityByColor(Map.of(
-						                                                new ColorResponse(2L, "Blue", 654321),
+						                                                new ColorResponse(2L, "Blue", "654321"),
 						                                                Set.of(Size.M)
 				                                                ))
 				                                                .build();

@@ -11,6 +11,9 @@
 *.iws
 out/
 
+# Spring Boot configuration files
+application.yml
+
 # Maven specific files
 target/
 pom.xml.tag

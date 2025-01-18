@@ -63,7 +63,7 @@ class ProductControllerTest {
 					                         .name(faker.commerce().productName())
 					                         .description(faker.lorem().sentence())
 					                         .price(faker.number().randomDouble(2, 10, 100))
-					                         .color(new ColorResponse(1L, "Red", 123456))
+					                         .color(new ColorResponse(1L, "Red", "123456"))
 					                         .type(new TypeResponse(1L, "Clothing"))
 					                         .gender(Gender.MEN)
 					                         .size(Size.M)
@@ -123,7 +123,7 @@ class ProductControllerTest {
 					                         .name(faker.commerce().productName())
 					                         .description(faker.lorem().sentence())
 					                         .price(faker.number().randomDouble(2, 10, 100))
-					                         .color(new ColorResponse(1L, "Red", 123456))
+					                         .color(new ColorResponse(1L, "Red", "123456"))
 					                         .type(new TypeResponse(1L, "Clothing"))
 					                         .gender(Gender.MEN)
 					                         .size(Size.M)
@@ -217,7 +217,7 @@ class ProductControllerTest {
 					                                  .name(faker.commerce().productName())
 					                                  .description(faker.lorem().sentence())
 					                                  .price(faker.number().randomDouble(2, 10, 100))
-					                                  .color(new ColorResponse(1L, "Red", 123456))
+					                                  .color(new ColorResponse(1L, "Red", "123456"))
 					                                  .type(new TypeResponse(1L, "Clothing"))
 					                                  .gender(Gender.MEN) // Use the correct enum value
 					                                  .size(Size.M)
@@ -263,7 +263,7 @@ class ProductControllerTest {
 					                                  .name(faker.commerce().productName())
 					                                  .description(faker.lorem().sentence())
 					                                  .price(faker.number().randomDouble(2, 10, 100))
-					                                  .color(new ColorResponse(1L, "Red", 123456))
+					                                  .color(new ColorResponse(1L, "Red", "123456"))
 					                                  .type(new TypeResponse(1L, "Clothing"))
 					                                  .gender(Gender.MEN) // Use the correct enum value
 					                                  .size(Size.M)
@@ -310,7 +310,7 @@ class ProductControllerTest {
 					                                  .name(faker.commerce().productName())
 					                                  .description(faker.lorem().sentence())
 					                                  .price(faker.number().randomDouble(2, 10, 100))
-					                                  .color(new ColorResponse(1L, "Red", 123456))
+					                                  .color(new ColorResponse(1L, "Red", "123456"))
 					                                  .type(new TypeResponse(1L, "CLOTHING")) // Use the same type name here
 					                                  .gender(Gender.MEN)
 					                                  .size(Size.M)
@@ -360,7 +360,7 @@ class ProductControllerTest {
 					                                  .name(faker.commerce().productName())
 					                                  .description(faker.lorem().sentence())
 					                                  .price(faker.number().randomDouble(2, 10, 100))
-					                                  .color(new ColorResponse(1L, "Red", 123456))
+					                                  .color(new ColorResponse(1L, "Red", "123456"))
 					                                  .type(new TypeResponse(1L, "Clothing"))
 					                                  .gender(Gender.MEN)
 					                                  .size(Size.M)
@@ -406,7 +406,7 @@ class ProductControllerTest {
 					                                  .name(faker.commerce().productName())
 					                                  .description(faker.lorem().sentence())
 					                                  .price(faker.number().randomDouble(2, 10, 100))
-					                                  .color(new ColorResponse(1L, "Red", 123456))
+					                                  .color(new ColorResponse(1L, "Red", "123456"))
 					                                  .type(new TypeResponse(1L, "Clothing"))
 					                                  .gender(Gender.MEN)
 					                                  .size(Size.M)
@@ -452,7 +452,7 @@ class ProductControllerTest {
 					                                  .name(faker.commerce().productName())
 					                                  .description(faker.lorem().sentence())
 					                                  .price(faker.number().randomDouble(2, 10, 100))
-					                                  .color(new ColorResponse(1L, "Red", 123456))
+					                                  .color(new ColorResponse(1L, "Red", "123456"))
 					                                  .type(new TypeResponse(1L, "Clothing"))
 					                                  .gender(Gender.MEN)
 					                                  .size(Size.M)
@@ -498,7 +498,7 @@ class ProductControllerTest {
 		@Test
 		void getProductWithSizeAvailability_ShouldReturnOkResponse() throws Exception {
 			// Arrange
-			ColorResponse colorResponse = new ColorResponse(1L, "Red", 123456);
+			ColorResponse colorResponse = new ColorResponse(1L, "Red", "123456");
 			Set<Size> sizes = new HashSet<>(Arrays.asList(Size.S, Size.M, Size.L));
 
 			ProductWithSizeAvailabilityResponse response = ProductWithSizeAvailabilityResponse.builder()

@@ -55,20 +55,6 @@ class ExceptionStatusTest {
 		assertThat(status, is(NOT_FOUND));
 	}
 
-	@Test
-	void testGetStatusFor_RoleNotFoundException() {
-		// Arrange
-		Throwable exception = new RoleNotFoundException(faker.lorem().sentence());
-
-		// Act
-		HttpStatus status = ExceptionStatus.getStatusFor(exception);
-
-		// Assert using AssertJ
-		assertThat(status).isEqualTo(NOT_FOUND);
-
-		// Assert using Hamcrest
-		assertThat(status, is(NOT_FOUND));
-	}
 
 	@Test
 	void testGetStatusFor_TokenNotFoundException() {

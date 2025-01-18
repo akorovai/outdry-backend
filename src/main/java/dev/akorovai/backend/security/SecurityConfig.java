@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -33,7 +34,7 @@ public class SecurityConfig {
 
     private static final Map<String, Map<HttpMethod, String[]>> ROLE_PATHS = Map.of(
             "PUBLIC", Map.of(
-                    HttpMethod.POST, new String[]{"/api/auth/register", "/api/auth/authenticate"}
+                    HttpMethod.POST, new String[]{"/api/auth/*"}
             ),
             "ADMIN", Map.of(
                     HttpMethod.POST, new String[]{"/api/products", "/api/products/{productId}/discount"},
@@ -61,7 +62,7 @@ public class SecurityConfig {
     }
 
     private void configurePublicPaths(
-            org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry request
+            AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry request
     ) {
         ROLE_PATHS.get("PUBLIC").forEach((method, paths) -> {
             request.requestMatchers(method, paths).permitAll();
@@ -69,7 +70,7 @@ public class SecurityConfig {
     }
 
     private void configureRoleBasedPaths(
-            org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry request
+            AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry request
     ) {
         ROLE_PATHS.forEach((role, methodMap) -> {
             if (!role.equals("PUBLIC")) {
@@ -83,7 +84,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.addAllowedOrigin("http://localhost:5173");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.setAllowCredentials(true);
