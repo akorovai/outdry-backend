@@ -260,6 +260,12 @@ public class ProductService {
 		log.info("Successfully retrieved {} products with size availability", responses.size());
 		return responses;
 	}
+
+	public void setImages(long productId, List<String> links) {
+		Product product = findProductById(productId);
+		product.setLinks(links);
+		productRepository.save(product);
+	}
 }
 
 

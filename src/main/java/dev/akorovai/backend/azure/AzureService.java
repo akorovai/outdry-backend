@@ -12,7 +12,9 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class AzureService {
 				                         .buildClient();
 	}
 
-	public String uploadAvatar(String containerName, String blobName, byte[] fileContent, String contentType, long fileSize) {
+	public String uploadImage(String containerName, String blobName, byte[] fileContent, String contentType, long fileSize) {
 		log.info("Starting upload for file: {}, size: {}, contentType: {}", blobName, fileSize, contentType);
 
 		if (!ALLOWED_CONTENT_TYPES.contains(contentType)) {
@@ -59,6 +61,29 @@ public class AzureService {
 		log.info("File '{}' uploaded successfully. Blob URL: {}", blobName, blobUrl);
 
 		return blobUrl;
+	}
+
+	public List<String> uploadImages(List<MultipartFile> files) {
+		log.info("Starting batch upload for {} files.", files.size());
+
+		return files.stream()
+				.map(file -> {
+					try {
+						String blobName = file.getOriginalFilename();
+                        return uploadImage(
+                                "images",
+                                blobName,
+                                file.getBytes(),
+                                file.getContentType(),
+                                file.getSize()
+                        );
+                    } catch (IOException e) {
+						log.error("Failed to upload file: {}", file.getOriginalFilename(), e);
+						throw new RuntimeException("Failed to upload file: " + file.getOriginalFilename(), e);
+                    }
+
+                })
+				.toList();
 	}
 }
 

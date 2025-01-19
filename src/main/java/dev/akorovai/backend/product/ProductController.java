@@ -1,5 +1,6 @@
 package dev.akorovai.backend.product;
 
+import dev.akorovai.backend.azure.AzureService;
 import dev.akorovai.backend.color.response.ColorResponse;
 import dev.akorovai.backend.product.request.ProductRequest;
 import dev.akorovai.backend.product.response.ProductResponse;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+    private final AzureService azureService;
     // this one
     @PostMapping
     public ResponseEntity<ResponseRecord> addProduct(@RequestBody ProductRequest productRequest) {
@@ -29,6 +32,18 @@ public class ProductController {
                                                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(responseRecord);
     }
+
+    @PostMapping("/{productId}/images")
+    public ResponseEntity<ResponseRecord> uploadImage(@RequestBody List<MultipartFile> files, @PathVariable long productId) {
+        List<String> links = azureService.uploadImages(files);
+        productService.setImages(productId, links);
+        ResponseRecord responseRecord = ResponseRecord.builder()
+                .code(HttpStatus.OK.value())
+                .message(links)
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseRecord);
+    }
+
     // this one
     @PutMapping("/{productId}")
     public ResponseEntity<ResponseRecord> modifyProduct(
